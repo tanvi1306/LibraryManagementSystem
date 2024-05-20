@@ -8,7 +8,7 @@ pipeline {
         stage('Git Pull') {
             steps {
                 // git credentialsId: 'e261986b-ee1d-4dda-bb39-a1e2cd880ebf', url: 'https://github.com/nikki00011/SPE-MAJORPROJECT.git\'
-		checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'e261986b-ee1d-4dda-bb39-a1e2cd880ebf', url: 'https://github.com/nikki00011/SPE-MAJORPROJECT.git']])
+		git branch: 'main', url: 'https://github.com/tanvi1306/LibraryManagementSystem.git'
                   }
          }
 		stage('Frontend Build') {
@@ -31,10 +31,10 @@ pipeline {
     		steps {
         
 		        dir('./frontend') {
-		            sh 'docker build -t nikki00011/libmntsys-frontend .'
+		            sh 'docker build -t tanvi1306/libmntsys-frontend .'
 		        }
 			dir('./Backend') {
-			    sh 'docker build -t nikki00011/libmntsys-backend .'
+			    sh 'docker build -t tanvi1306/libmntsys-backend .'
 			}
                       }
          }
@@ -42,12 +42,12 @@ pipeline {
         stage('Push Image to Hub') {
 	    steps {
 		script {
-		    withCredentials([string(credentialsId: 'dockerspe', variable: 'dockerspe')]) {
-			sh "docker login -u nikki00011 -p ${dockerspe}"
+		    withCredentials([string(credentialsId: 'DockerId', variable: 'DockerId')]) {
+			sh "docker login -u nikki00011 -p ${DockerId}"
 		    }
 		    
-		    sh 'docker push nikki00011/libmntsys-frontend'
-			// sh 'docker push nikki00011/libmntsys-backend'
+		    sh 'docker push tanvi1306/libmntsys-frontend'
+			sh 'docker push tanvi1306/libmntsys-backend'
 		       }
                 }
 	}
