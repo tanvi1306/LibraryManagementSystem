@@ -30,7 +30,7 @@ pipeline {
         stage('Build Docker Image') {
     		steps {
         
-		        dir('./frontend') {
+		        dir('./Frontend') {
 		            sh 'docker build -t tanvi1306/libmntsys-frontend .'
 		        }
 			dir('./Backend') {
