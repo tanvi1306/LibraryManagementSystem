@@ -13,7 +13,7 @@ pipeline {
          }
 		stage('Frontend Build') {
             steps {
-                dir('./frontend') {
+                dir('./Frontend') {
 			sh 'npm install'
                     sh 'npm run build'
                 }
@@ -43,7 +43,7 @@ pipeline {
 	    steps {
 		script {
 		    withCredentials([string(credentialsId: 'DockerId', variable: 'DockerId')]) {
-			sh "docker login -u nikki00011 -p ${DockerId}"
+			sh "docker login -u tanvi1306 -p ${DockerId}"
 		    }
 		    
 		    sh 'docker push tanvi1306/libmntsys-frontend'
