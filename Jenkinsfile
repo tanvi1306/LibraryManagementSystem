@@ -42,11 +42,8 @@ pipeline {
         stage('Push Image to Hub') {
 	    steps {
 		script {
-		    withCredentials([string(credentialsId: 'DockerId', variable: 'DockerId')]) {
-			sh "docker login -u tanvi1306 -p ${DockerId}"
-		    }
-		    
-		    sh 'docker push tanvi1306/libmntsys-frontend'
+		    docker.withRegistry('', 'DockerId') {
+		    	sh 'docker push tanvi1306/libmntsys-frontend'
 			sh 'docker push tanvi1306/libmntsys-backend'
 		       }
                 }
